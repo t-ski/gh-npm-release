@@ -21,6 +21,7 @@ module.exports.release = function(type) {   // : Type
     .slice(0, 3)
     .map(p => parseInt(p));
     semver[type] += 1;
+    for(let i = type + 1; i <= 2; i++) semver[i] = 0;
     const version = semver.join(".");
     const tag = `v${version}`;
     

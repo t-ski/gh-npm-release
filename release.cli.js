@@ -23,7 +23,8 @@ switch(process.argv.slice(2)[0]) {
         type = release.Type.MAJOR;
         break;
 }
-if(!type) throw new SyntaxError("Unknown release type (-p | -m | -M)")
+if(type === undefined)
+    throw new SyntaxError("Unknown release type (-p | -m | -M)");
 
 
 release.release(type);
