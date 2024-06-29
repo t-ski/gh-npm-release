@@ -8,7 +8,13 @@ const exec = (cmd) => console.log([
 const PACKAGE = require(require("path").resolve("package.json"));
 
 
-module.exports = function(type) {   // 0: major, 1: minor, 2: patch
+module.exports.Type = {
+    MAJOR: 0,
+    MINOR: 1,
+    PATCH: 2
+};
+
+module.exports.release = function(type) {   // : Type
     // BUMP
     const semver = PACKAGE.version
     .split(/\./g)
