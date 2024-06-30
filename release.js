@@ -14,8 +14,7 @@ module.exports.Type = {
     PATCH: 2
 };
 
-module.exports.release = function(type) {   // : Type
-    // BUMP
+module.exports.release = function(type/*: Type*/) {
     const semver = PACKAGE.version
     .split(/\./g)
     .slice(0, 3)
@@ -25,11 +24,17 @@ module.exports.release = function(type) {   // : Type
     const version = semver.join(".");
     const tag = `v${version}`;
     
-    exec(`npm version ${version}`);
-    exec("npm publish --access public");
-    exec("git push");
+    try {
+        exec(`npm version ${version}`);
+        exec("npm publish --access public");
+        exec("git push");
+    } catch(err) {
+        exec("git reset --soft HEAD~1");
+        exec(`git tag -d ${tag}`);
+
+        throw err;
+    }
     
-    // GH RELEASE
     exec([
         (process.platform == "darwin")
         ? "open"

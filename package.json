@@ -1,0 +1,13 @@
+{
+  "name": "@t-ski/gh-npm-release",
+  "version": "0.9.0",
+  "description": " Simple package release script for NPM with GitHub Releases redirect.",
+  "main": "./release.js",
+  "bin": {
+    "ghnpm": "./release.cli.js",
+    "release": "./release.cli.js"
+  },
+  "keywords": [],
+  "author": "Thassilo Martin Schiepanski",
+  "license": "MIT"
+}
