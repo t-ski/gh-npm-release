@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 
+const { createInterface: createReadline } = require("readline");
+
 const release = require("./release");
 
 
@@ -25,7 +27,19 @@ switch(process.argv.slice(2)[0]) {
 }
 if(type === undefined)
     throw new SyntaxError("Unknown release type (-p | -m | -M)");
+const typeLabel = [ "major", "minor", "patch" ][type];
 
 
-release.release(type);
-console.log(`\x1b[32m${tag} successfully released.\x1b[0m`);
+createReadline(process.stdin, process.stdout)
+.question(
+    `\x1b[34mAre you sure to release [\x1b[1m${typeLabel}\x1b[22m] \x1b[2m(y/n)\x1b[0m\n`,
+    (answer) => {
+    if(answer.trim() !== "y") {
+        console.error("\x1b[31mRelease aborted.\x1b[0m");
+        process.exit(1);
+    }
+
+    release.release(type);
+    console.log(`\x1b[32m[\x1b[1m${typeLabel}\x1b[22m] successfully released.\x1b[0m`);
+    process.exit(0);
+});

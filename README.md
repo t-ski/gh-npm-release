@@ -62,16 +62,16 @@ enum Type {
 ``` js
 const ghnpm = require("@t-ski/gh-npm-release");
 
-const ghnpm.release(gnr.Type.MINOR);
+const ghnpm.release(ghnpm.Type.MINOR);
 ```
 
 ## Abstract Procedure
 
-1. 🏷️ Bump package version:
+1. 🏷️ &hairsp; Bump package version:
     1. Increase version according to specified Semver type.
     2. Create a related git tag `v<version>`.
-2. 📢 Publish package to NPM registry.
-3. 🔗 Open GitHub Releases with tag information.
+2. 📢 &hairsp; Publish package to NPM registry.
+3. 🔗 &hairsp; Open GitHub Releases with tag information.
 
 > 💡 In case of an error during the procedure, the version bump is reverted.
 

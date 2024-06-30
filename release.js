@@ -24,17 +24,16 @@ module.exports.release = function(type/*: Type*/) {
     const version = semver.join(".");
     const tag = `v${version}`;
     
+    exec(`npm version ${version}`);
     try {
-        exec(`npm version ${version}`);
         exec("npm publish --access public");
-        exec("git push");
     } catch(err) {
         exec("git reset --soft HEAD~1");
-        exec(`git tag -d ${tag}`);
+        try { exec(`git tag -d ${tag}`); } catch {}
 
         throw err;
     }
-    
+    exec("git push");
     exec([
         (process.platform == "darwin")
         ? "open"
